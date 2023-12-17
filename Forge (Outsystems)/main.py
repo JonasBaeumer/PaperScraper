@@ -1,6 +1,4 @@
 # Some testing for the outsystems / https://www.outsystems.com/forge/list on Selenium
-import csv
-import time
 
 import selenium
 from selenium import webdriver
@@ -9,7 +7,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
-from selenium.webdriver.support import expected_conditions
 
 
 def open_browser(path) -> selenium.webdriver:
@@ -30,15 +27,15 @@ def browser_find_elements(driver):
 
     # Create wait object to wait for 100s
     ignored_exceptions = (NoSuchElementException, StaleElementReferenceException,)
-    wait = WebDriverWait(driver, 1000, ignored_exceptions=ignored_exceptions)
+    wait = WebDriverWait(driver, 200, ignored_exceptions=ignored_exceptions)
 
     # Click on Accept cookies button
     wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@id='onetrust-accept-btn-handler']"))).click()
 
     # Click on Load more button
-    for i in range(8):
+    for i in range(2):
         print('Iteration: ' + str(i))
-        for j in range(7):
+        for j in range(2):
             wait.until(
                 EC.element_to_be_clickable((By.XPATH, "//*[@id='PortalTheme_wt778_block_wtMainContent_wtLoadMore']"))).click()
             # time.sleep(10)
@@ -143,7 +140,7 @@ def open_component_page(browser, componentstring):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    path = 'https://www.outsystems.com/forge/list?q=&t=&o=most-popular&tr=False&oss=False&c=%205361,5362,5363,5364,5365,5366,5367,5368,5369,5370&a=&v=&hd=False&tn=&scat=forge'
+    path = 'https://www.outsystems.com/forge/list?q=&t=&o=most-popular&tr=False&oss=False&c=%205406,5407,5408,5409,5410,5411,5412,5413,5414&a=&v=&hd=False&tn=&scat=forge'
     browser = open_browser(path)
     browser_find_elements(browser)
     quit_browser(browser)
